@@ -11,7 +11,7 @@ services:
     volumes:
       - ./mysql_data:/var/lib/mysql
     networks:
-      - zalongwa
+      - mynet
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -22,7 +22,7 @@ services:
       PMA_PORT: 3306
       UPLOAD_LIMIT: 256M 
     networks:
-      - zalongwa
+      - mynet
     expose:
       - 80
     labels:
@@ -40,7 +40,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./portainer_data:/data
     networks:
-      - zalongwa
+      - mynet
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.portainer_.rule=Host(`portainer.example.com`)"
@@ -53,5 +53,5 @@ volumes:
   portainer_data:
 
 networks:
-  zalongwa:
+  mynet:
     external: true
