@@ -1,4 +1,4 @@
-version: "3.9"
+
 
 services:
 
@@ -11,7 +11,7 @@ services:
     volumes:
       - ./mysql_data:/var/lib/mysql
     networks:
-      - zalongwa
+      - mutech
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -22,7 +22,7 @@ services:
       PMA_PORT: 3306
       UPLOAD_LIMIT: 256M 
     networks:
-      - zalongwa
+      - mutech
     ports:
       - "8080:80"
     # labels:
@@ -32,15 +32,15 @@ services:
     #   - "traefik.http.routers.phpmyadmin.tls.certresolver=myresolver"
     #   - "traefik.http.services.phpmyadmin.loadbalancer.server.port=80"
 
-  # portainer:
-  #   image: portainer/portainer-ce
-  #   container_name: portainer_
-  #   restart: always
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - ./portainer_data:/data
-  #   networks:
-  #     - zalongwa
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer_
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer_data:/data
+    networks:
+      - mutech
   #   labels:
   #     - "traefik.enable=true"
   #     - "traefik.http.routers.portainer_.rule=Host(`portainer.example.com`)"
@@ -48,10 +48,7 @@ services:
   #     - "traefik.http.routers.portainer_.tls.certresolver=myresolver"
   #     - "traefik.http.services.portainer_.loadbalancer.server.port=9000"
 
-volumes:
-  mysql_data:
-  portainer_data:
 
 networks:
-  zalongwa:
+  mutech:
     external: true
